@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>IT - O Pesadelo dos Balões</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Creepster&family=Nosifer&display=swap"
+      rel="stylesheet"
+    />
+    <link href="assets/css/app.css" rel="stylesheet" />
+  </head>
+  <body>
+    <audio id="backgroundAudio" loop>
+      <source src="assets/audio/laugh.mp3" type="audio/mpeg" />
+    </audio>
+
+    <div class="container">
+      <div id="startScreen">
+        <h1>IT</h1>
+        <div class="subtitle">O Pesadelo dos Balões</div>
+        <div class="instructions">
+          <h3>Como Jogar</h3>
+          <ul>
+            <li>🎈 Clique nos balões para estourá-los</li>
+            <li>💀 Perca uma vida se um balão escapar</li>
+            <li>⚡ A dificuldade aumenta a cada nível</li>
+          </ul>
+        </div>
+        <button class="btn" onclick="startGame()">Começar Pesadelo</button>
+      </div>
+
+      <canvas id="gameCanvas" width="800" height="600"></canvas>
+
+      <div class="stats" id="stats">
+        <div class="stat-item">
+          <span class="stat-label">Pontos:</span>
+          <span class="stat-value" id="score">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Nível:</span>
+          <span class="stat-value" id="level">1</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Vidas:</span>
+          <span class="lives" id="lives">❤️❤️❤️</span>
+        </div>
+      </div>
+
+      <div id="gameOver">
+        <h2>GAME OVER</h2>
+        <p>Pontuação Final: <span id="finalScore">0</span></p>
+        <p>Nível Alcançado: <span id="finalLevel">1</span></p>
+        <button class="btn" onclick="restartGame()">Tentar Novamente</button>
+      </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+  </body>
+</html>

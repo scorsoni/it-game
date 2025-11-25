@@ -1,0 +1,335 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #131313;
+  color: #fff;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-10px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(10px);
+  }
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+  }
+  25% {
+    text-shadow: -2px -2px #ff0000, 2px 2px #00ff00;
+  }
+  50% {
+    text-shadow: 2px -2px #ff0000, -2px 2px #00ff00;
+  }
+  75% {
+    text-shadow: -2px 2px #ff0000, 2px -2px #00ff00;
+  }
+  100% {
+    text-shadow: 2px 2px #ff0000, -2px -2px #00ff00;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bloodDrip {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+h1 {
+  font-family: "Creepster", cursive;
+  font-size: 5em;
+  color: #ae0f0e;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+  letter-spacing: 5px;
+}
+
+.subtitle {
+  font-family: "Nosifer", cursive;
+  font-size: 1.5em;
+  color: #ccc;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+#gameCanvas {
+  border: 3px solid #ae0f0e;
+  background: #131313;
+  cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><circle cx="16" cy="16" r="8" fill="none" stroke="red" stroke-width="2"/><circle cx="16" cy="16" r="2" fill="red"/></svg>')
+      16 16,
+    crosshair;
+  display: none;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+#startScreen {
+  animation: fadeIn 1s ease-in;
+}
+
+.btn {
+  font-family: "Creepster", cursive;
+  font-size: 2em;
+  padding: 20px 50px;
+  background: #ae0f0e;
+  color: #fff;
+  border: 3px solid #ae0f0e;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  margin-top: 30px;
+}
+
+.btn:hover {
+  background: linear-gradient(145deg, #a00000, #700000);
+  box-shadow: 0 8px 25px rgba(255, 0, 0, 0.8),
+    inset 0 -3px 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-3px);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(139, 0, 0, 0.6),
+    inset 0 -3px 10px rgba(0, 0, 0, 0.5);
+}
+
+.stats {
+  display: none;
+  justify-content: space-around;
+  margin-top: 20px;
+  font-size: 1.5em;
+  font-weight: bold;
+  background: #131313;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #8b0000;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.stat-label {
+  color: #ae0f0e;
+}
+
+.stat-value {
+  color: #fff;
+  font-size: 1.2em;
+}
+
+.lives {
+  color: #ff0000;
+  font-size: 1.5em;
+}
+
+#gameOver {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #131313;
+  padding: 50px;
+  border: 5px solid #ff0000;
+  border-radius: 20px;
+  z-index: 100;
+  text-align: center;
+  animation: fadeIn 0.5s ease-in;
+}
+
+#gameOver h2 {
+  font-family: "Nosifer", cursive;
+  font-size: 3em;
+  color: #ff0000;
+  margin-bottom: 20px;
+  animation: glitch 1s infinite;
+}
+
+#gameOver p {
+  font-size: 1.5em;
+  margin: 15px 0;
+  color: #ae0f0e;
+}
+
+.blood-drip {
+  position: absolute;
+  width: 3px;
+  height: 30px;
+  background: linear-gradient(to bottom, #8b0000, #ff0000);
+  animation: bloodDrip 3s linear;
+  border-radius: 0 0 50% 50%;
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
+.instructions {
+  background: #131313;
+  padding: 20px;
+  margin-top: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.instructions h3 {
+  font-family: "Creepster", cursive;
+  color: #ae0f0e;
+  margin-bottom: 15px;
+  font-size: 1.8em;
+}
+
+.instructions ul {
+  list-style: none;
+  padding: 0;
+}
+
+.instructions li {
+  margin: 10px 0;
+  padding-left: 25px;
+  position: relative;
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 3em;
+  }
+
+  .subtitle {
+    font-size: 1em;
+  }
+
+  .btn {
+    font-size: 1.5em;
+    padding: 15px 30px;
+  }
+
+  .stats {
+    font-size: 1em;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .stat-item {
+    font-size: 0.9em;
+  }
+
+  .instructions {
+    font-size: 0.9em;
+    padding: 15px;
+  }
+
+  .instructions h3 {
+    font-size: 1.4em;
+  }
+
+  .instructions li {
+    font-size: 0.85em;
+    margin: 8px 0;
+  }
+
+  #gameOver {
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+  }
+
+  #gameOver h2 {
+    font-size: 2em;
+  }
+
+  #gameOver p {
+    font-size: 1.2em;
+  }
+
+  #gameCanvas {
+    touch-action: none; /* Previne scroll ao tocar no canvas */
+  }
+}
